@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "413650120122",
+    "firebase_url": "https://pwat-ee02e-default-rtdb.firebaseio.com",
+    "project_id": "pwat-ee02e",
+    "storage_bucket": "pwat-ee02e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:413650120122:android:8fd48ad6ee3d18d235c183",
+        "android_client_info": {
+          "package_name": "com.piratenahid.wat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "413650120122-8vdv96nbkpund1c3ki512hppse264cnm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUDccEnx0ybooSzYHzGoNh1SzgUzb5-h0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "413650120122-8vdv96nbkpund1c3ki512hppse264cnm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:413650120122:android:c3e1f42a07c76e9b35c183",
+        "android_client_info": {
+          "package_name": "com.piratenahid.watandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "413650120122-8vdv96nbkpund1c3ki512hppse264cnm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUDccEnx0ybooSzYHzGoNh1SzgUzb5-h0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "413650120122-8vdv96nbkpund1c3ki512hppse264cnm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

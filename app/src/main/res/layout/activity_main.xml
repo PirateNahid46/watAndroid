@@ -114,6 +114,7 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/start_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Start"
@@ -122,6 +123,23 @@
             android:layout_margin="5dp"
             />
 
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/wat_lin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="WAT"
+            android:textColor="@color/black"
+            android:textSize="40sp"
+            android:textAlignment="center"
+            android:fontFamily="@font/poppinsb"
+            />
     </LinearLayout>
 
 

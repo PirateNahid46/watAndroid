@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     List<String> wordList;
     Button start;
     LinearLayout linearLayoutSettings, linearLayoutWat;
+    TextView wat;
 
 
     @Override
@@ -34,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         start = findViewById(R.id.start_button);
         linearLayoutSettings = findViewById(R.id.settings_lin);
         linearLayoutWat = findViewById(R.id.wat_lin);
+        wat = findViewById(R.id.wat);
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("words");
 
 
@@ -44,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
                     String word = dataSnapshot.child("name").getValue(String.class);
+                    Log.d("", word);
                     wordList.add(word);
                 }
 
@@ -61,6 +67,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 linearLayoutSettings.setVisibility(View.GONE);
                 linearLayoutWat.setVisibility(View.VISIBLE);
+
+                new Timer().scheduleAtFixedRate(new TimerTask()
+                {
+                    @Override
+                    public void run() {
+                        int y = (int) (Math.random()* wordList.size());
+                        wat.setText(wordList.get(y));; // call your method
+                    }
+                }, 0, 1000);
             }
         });
 

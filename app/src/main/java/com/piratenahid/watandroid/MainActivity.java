@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     Button start, load;
     LinearLayout linearLayoutSettings, linearLayoutWat;
     TextView wat;
+    EditText editTime;
     ScheduledFuture<?> t;
     ScheduledThreadPoolExecutor executor;
     Spinner set;
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         last_set = new ArrayList<>();
         load = findViewById(R.id.load);
         List<Integer> sets = new ArrayList<>();
+        editTime = findViewById(R.id.edit_time);
 
 
         set_selected = 1;
@@ -112,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             last_set = Set.get(set_selected);
             System.out.println(last_set);
             shown = new ArrayList<>();
+            time_selected = Integer.parseInt(editTime.getText().toString());
             t = executor.scheduleAtFixedRate(new MyTask(), 0, time_selected, TimeUnit.SECONDS);
 
 

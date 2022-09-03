@@ -31,7 +31,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Time: "
+                android:text="Time: (s)"
                 android:fontFamily="@font/poppinsb"
                 android:textSize="20sp"
                 android:textColor="@color/black"
@@ -39,12 +39,18 @@
                 android:layout_weight="1"
                 />
 
-<!--            <Spinner-->
-<!--                android:id="@+id/spinner_time"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="1"-->
-<!--                />-->
+            <EditText
+                android:id="@+id/edit_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="10"
+                android:fontFamily="@font/poppinsb"
+                android:inputType="number"
+
+                />
+
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

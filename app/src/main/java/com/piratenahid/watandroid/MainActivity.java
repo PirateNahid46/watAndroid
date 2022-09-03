@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -24,34 +26,64 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
 
     List<String> wordList;
-    Button start;
+    Button start, load;
     LinearLayout linearLayoutSettings, linearLayoutWat;
     TextView wat;
     ScheduledFuture<?> t;
     ScheduledThreadPoolExecutor executor;
-    Spinner set, time;
+    Spinner set;
+    int set_selected, time_selected;
+    List<List<String>> Set;
+    List<String> last_set;
+    List<String> shown;
+    ArrayAdapter<Integer> setAdapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        wordList = new ArrayList<String>();
+        wordList = new ArrayList<>();
+        last_set = new ArrayList<>();
+        load = findViewById(R.id.load);
+        List<Integer> sets = new ArrayList<>();
+
+
+        set_selected = 1;
+        time_selected = 10;
+
+        load.setOnClickListener(v -> {
+            load.setVisibility(View.GONE);
+            Set = getBatches(wordList, 80);
+            for (int x = 0 ; x < Set.size() ; x++){
+                sets.add(x+1);
+                set.setAdapter(setAdapter);
+            }
+        });
+
+
+
+
+              setAdapter  = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item, sets);
+        setAdapter.setDropDownViewResource(
+                android.R.layout
+                        .simple_spinner_dropdown_item);
+
         set = findViewById(R.id.spinner_set);
-        time = findViewById(R.id.spinner_time);
+        set.setOnItemSelectedListener(this);
+
         start = findViewById(R.id.start_button);
         linearLayoutSettings = findViewById(R.id.settings_lin);
         linearLayoutWat = findViewById(R.id.wat_lin);
         wat = findViewById(R.id.wat);
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("words");
-        executor = new ScheduledThreadPoolExecutor(15);
-
-
-
+        executor = new ScheduledThreadPoolExecutor(80);
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -72,31 +104,47 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                List<List<String>> Set = getBatches(wordList, 80);
-                linearLayoutSettings.setVisibility(View.GONE);
-                linearLayoutWat.setVisibility(View.VISIBLE);
-                System.out.println(Set);
-                t = executor.scheduleAtFixedRate(new MyTask(), 0, 1, TimeUnit.SECONDS);
+        start.setOnClickListener(v -> {
+
+
+            linearLayoutSettings.setVisibility(View.GONE);
+            linearLayoutWat.setVisibility(View.VISIBLE);
+            last_set = Set.get(set_selected);
+            System.out.println(last_set);
+            shown = new ArrayList<>();
+            t = executor.scheduleAtFixedRate(new MyTask(), 0, time_selected, TimeUnit.SECONDS);
 
 
 
-            }
         });
 
          // no
 
 
     }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        set_selected = position;
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
     class MyTask implements Runnable {
         private int attempt = 0;
-        @SuppressLint("ResourceAsColor")
+        @SuppressLint({"ResourceAsColor", "SetTextI18n"})
         public void run() {
-            int y = (int) (Math.random()* wordList.size());
-            wat.setText(wordList.get(y));;
-            if (++attempt > 5) {
+
+            showWat();
+
+
+
+
+
+            if (++attempt > 80) {
                 wat.setText("Finished");
                 wat.setTextColor(R.color.purple_200);
                 t.cancel(false);
@@ -106,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static <T> List<List<T>> getBatches(List<T> collection,int batchSize){
         int i = 0;
-        List<List<T>> batches = new ArrayList<List<T>>();
+        List<List<T>> batches = new ArrayList<>();
         while(i<collection.size()){
             int nextInc = Math.min(collection.size()-i,batchSize);
             List<T> batch = collection.subList(i,i+nextInc);
@@ -115,5 +163,21 @@ public class MainActivity extends AppCompatActivity {
         }
         return batches;
     }
+
+    private void showWat(){
+        int y = (int) (Math.random()* last_set.size());
+        String word = last_set.get(y);
+        if(shown.contains(word)){
+            Log.d("Tag", "Already Shown " + word);
+            showWat();
+        }else {
+            shown.add(word);
+            wat.setText(word);
+            System.out.println(shown + "" + shown.size());
+
+        }
+    }
+
+
 
 }

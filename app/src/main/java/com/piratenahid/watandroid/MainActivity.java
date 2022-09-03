@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     int set_selected, time_selected;
     List<List<String>> Set;
     List<String> last_set;
-    List<String> shown;
     ArrayAdapter<Integer> setAdapter;
 
 
@@ -114,7 +113,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             linearLayoutWat.setVisibility(View.VISIBLE);
             last_set = Set.get(set_selected);
             System.out.println(last_set);
-            shown = new ArrayList<>();
             time_selected = Integer.parseInt(editTime.getText().toString());
             t = executor.scheduleAtFixedRate(new MyTask(), 0, time_selected, TimeUnit.SECONDS);
 
@@ -171,15 +169,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private void showWat(){
         int y = (int) (Math.random()* last_set.size());
         String word = last_set.get(y);
-        if(shown.contains(word)){
-            Log.d("Tag", "Already Shown " + word);
-            showWat();
-        }else {
-            shown.add(word);
-            wat.setText(word);
-            System.out.println(shown + "" + shown.size());
-
-        }
+        wat.setText(word);
+        last_set.remove(word);
+        System.out.println(last_set + "" + last_set.size());
     }
 
 

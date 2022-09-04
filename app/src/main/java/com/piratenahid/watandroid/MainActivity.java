@@ -60,7 +60,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         load.setOnClickListener(v -> {
             load.setVisibility(View.GONE);
-            Set = getBatches(wordList, 80);
+            linearLayoutSettings.setVisibility(View.VISIBLE);
+            Set = getBatches(wordList, 5+1);
             for (int x = 0 ; x < Set.size() ; x++){
                 sets.add(x+1);
                 set.setAdapter(setAdapter);
@@ -146,13 +147,27 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
 
-            if (++attempt > 80) {
+            if (++attempt > 5) {
                 wat.setText("Finished");
                 wat.setTextColor(R.color.purple_200);
                 t.cancel(false);
             }
         }
     }
+
+    class Loader implements Runnable{
+
+        @Override
+        public void run() {
+            if(wordList.size()>0){
+                load.setEnabled(true);
+            }else {
+                load.setEnabled(false);
+                load.setText("Loading");
+            }
+        }
+    }
+
 
     public static <T> List<List<T>> getBatches(List<T> collection,int batchSize){
         int i = 0;

@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     List<List<String>> Set;
     List<String> last_set;
     ArrayAdapter<Integer> setAdapter;
+    int noOfWords;
 
 
     @Override
@@ -53,15 +54,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         load = findViewById(R.id.load);
         List<Integer> sets = new ArrayList<>();
         editTime = findViewById(R.id.edit_time);
+        load.setText("Loading");
+        load.setEnabled(false);
 
 
         set_selected = 1;
         time_selected = 10;
+        noOfWords = 5;
 
         load.setOnClickListener(v -> {
             load.setVisibility(View.GONE);
             linearLayoutSettings.setVisibility(View.VISIBLE);
-            Set = getBatches(wordList, 5+1);
+            Set = getBatches(wordList, noOfWords+1);
             for (int x = 0 ; x < Set.size() ; x++){
                 sets.add(x+1);
                 set.setAdapter(setAdapter);
@@ -97,6 +101,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     Log.d("", word);
                     wordList.add(word);
                 }
+                load.setEnabled(true);
+                load.setText("Go");
 
             }
 
@@ -147,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
 
-            if (++attempt > 5) {
+            if (++attempt > noOfWords) {
                 wat.setText("Finished");
                 wat.setTextColor(R.color.purple_200);
                 t.cancel(false);
@@ -155,18 +161,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
     }
 
-    class Loader implements Runnable{
 
-        @Override
-        public void run() {
-            if(wordList.size()>0){
-                load.setEnabled(true);
-            }else {
-                load.setEnabled(false);
-                load.setText("Loading");
-            }
-        }
-    }
 
 
     public static <T> List<List<T>> getBatches(List<T> collection,int batchSize){

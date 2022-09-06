@@ -5,6 +5,44 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Word Association Test"
+        android:fontFamily="@font/poppinsb"
+        android:layout_margin="10dp"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        />
+
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No. of Words"
+        android:layout_above="@+id/noOfWords"
+        android:fontFamily="@font/poppinsb"
+        android:layout_marginStart="10dp"
+        />
+
+
+
+    <EditText
+        android:id="@+id/noOfWords"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/load"
+        android:background="@color/white"
+        android:text="80"
+        android:padding="5dp"
+        android:inputType="number"
+        android:fontFamily="@font/poppinsb"
+        android:layout_marginStart="10dp"
+        />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,6 +50,8 @@
         android:fontFamily="@font/poppinsb"
         android:textAllCaps="false"
         android:id="@+id/load"
+        android:layout_margin="10dp"
+        android:layout_centerInParent="true"
         />
 
     <LinearLayout

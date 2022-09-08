@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     List<String> wordList;
     Button start, load;
     LinearLayout linearLayoutSettings, linearLayoutWat;
-    TextView wat;
-    EditText editTime;
+    TextView wat, noOfWordText;
+    EditText editTime, noOfWordEdit;
     ScheduledFuture<?> t;
     ScheduledThreadPoolExecutor executor;
     Spinner set;
@@ -54,15 +54,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         load = findViewById(R.id.load);
         List<Integer> sets = new ArrayList<>();
         editTime = findViewById(R.id.edit_time);
+        noOfWordEdit = findViewById(R.id.noOfWords);
+        noOfWordText = findViewById(R.id.noOfWordsText);
         load.setText("Loading");
         load.setEnabled(false);
 
 
         set_selected = 1;
         time_selected = 10;
-        noOfWords = 5;
+        noOfWords = 80;
 
         load.setOnClickListener(v -> {
+            noOfWords = Integer.parseInt(noOfWordEdit.getText().toString());
+            noOfWordEdit.setVisibility(View.GONE);
+            noOfWordText.setVisibility(View.GONE);
             load.setVisibility(View.GONE);
             linearLayoutSettings.setVisibility(View.VISIBLE);
             Set = getBatches(wordList, noOfWords+1);

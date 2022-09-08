@@ -8,18 +8,19 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Word Association Test"
-        android:fontFamily="@font/poppinsb"
+        android:text="WORD ASSOCIATION TEST"
+        android:fontFamily="@font/eagle"
         android:layout_margin="10dp"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="30sp"
+        android:textSize="27sp"
         />
 
 
 
 
     <TextView
+        android:id="@+id/noOfWordsText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="No. of Words"
@@ -47,8 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Go"
-        android:fontFamily="@font/poppinsb"
-        android:textAllCaps="false"
+        android:fontFamily="@font/eagle"
         android:id="@+id/load"
         android:layout_margin="10dp"
         android:layout_centerInParent="true"

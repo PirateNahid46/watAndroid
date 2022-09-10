@@ -10,7 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     LinearLayout linearLayoutSettings, linearLayoutWat;
     TextView wat, noOfWordText;
     EditText editTime, noOfWordEdit;
+    Switch sound, serial;
     ScheduledFuture<?> t;
     ScheduledThreadPoolExecutor executor;
     Spinner set;
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         wordList = new ArrayList<>();
         last_set = new ArrayList<>();
         load = findViewById(R.id.load);
+        sound = findViewById(R.id.sound_switch);
         List<Integer> sets = new ArrayList<>();
         editTime = findViewById(R.id.edit_time);
         noOfWordEdit = findViewById(R.id.noOfWords);
@@ -119,6 +123,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         });
 
         start.setOnClickListener(v -> {
+            if(sound.isChecked()){
+                Toast.makeText(this, "Sound", Toast.LENGTH_SHORT).show();
+            }
 
 
             linearLayoutSettings.setVisibility(View.GONE);

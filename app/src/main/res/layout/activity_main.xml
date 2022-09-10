@@ -174,8 +174,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Start"
-            android:fontFamily="@font/poppinsb"
-            android:textAllCaps="false"
+            android:fontFamily="@font/eagle"
             android:layout_margin="5dp"
             />
 

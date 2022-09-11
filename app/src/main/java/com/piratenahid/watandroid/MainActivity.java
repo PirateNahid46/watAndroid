@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         last_set = new ArrayList<>();
         load = findViewById(R.id.load);
         sound = findViewById(R.id.sound_switch);
+        serial = findViewById(R.id.serial_switch);
         List<Integer> sets = new ArrayList<>();
         editTime = findViewById(R.id.edit_time);
         noOfWordEdit = findViewById(R.id.noOfWords);
@@ -123,9 +124,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         });
 
         start.setOnClickListener(v -> {
-            if(sound.isChecked()){
-                Toast.makeText(this, "Sound", Toast.LENGTH_SHORT).show();
-            }
 
 
             linearLayoutSettings.setVisibility(View.GONE);
@@ -159,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         @SuppressLint({"ResourceAsColor", "SetTextI18n"})
         public void run() {
 
-            showWat();
+            showWat(attempt+1);
 
 
 
@@ -188,10 +186,21 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         return batches;
     }
 
-    private void showWat(){
+    private void showWat(int attempt){
+        if(sound.isChecked()){
+            Toast.makeText(this, "Sound", Toast.LENGTH_SHORT).show();
+        }
+
         int y = (int) (Math.random()* last_set.size());
         String word = last_set.get(y);
-        wat.setText(word);
+        String finalWord;
+        if(serial.isChecked()){
+            finalWord = attempt+". " + word;
+        }
+        else {
+            finalWord = word;
+        }
+        wat.setText(finalWord);
         last_set.remove(word);
         System.out.println(last_set + "" + last_set.size());
     }

@@ -1,6 +1,7 @@
 package com.piratenahid.watandroid;
 
 import android.annotation.SuppressLint;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -46,12 +47,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     List<String> last_set;
     ArrayAdapter<Integer> setAdapter;
     int noOfWords;
+    MediaPlayer mp;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MainActivity.this.overridePendingTransition(
+                R.anim.animate_windmill_enter,
+                R.anim.animate_zoom_exit
+        );
         wordList = new ArrayList<>();
         last_set = new ArrayList<>();
         load = findViewById(R.id.load);
@@ -81,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 set.setAdapter(setAdapter);
             }
         });
+        mp = MediaPlayer.create(this, R.raw.sound);
 
 
 
@@ -187,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private void showWat(int attempt){
         if(sound.isChecked()){
-            Toast.makeText(this, "Sound", Toast.LENGTH_SHORT).show();
+            mp.start();
         }
 
         int y = (int) (Math.random()* last_set.size());
